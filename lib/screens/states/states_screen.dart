@@ -10,6 +10,11 @@ class stateScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
         child: Column(
           children: [
+            Text("Transaction",style: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),)
 
           ],
         ),
