@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/data.dart';
+
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
@@ -50,7 +52,7 @@ class MainScreen extends StatelessWidget {
                               color: Theme.of(context).colorScheme.outline),
                         ),
                         Text(
-                          "Each NIO",
+                          "Yichi Liu",
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -233,7 +235,7 @@ class MainScreen extends StatelessWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: transactionData.length,
                 itemBuilder: (context, int index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16.0),
@@ -256,16 +258,16 @@ class MainScreen extends StatelessWidget {
                                       width: 30,
                                       height: 30,
                                       decoration: BoxDecoration(
-                                          color: Colors.yellow, shape: BoxShape.circle),
+                                          color: transactionData[index]["color"], shape: BoxShape.circle),
                                     ),
-                                    Icon(Icons.food_bank_outlined,size: 20,)
+                                    transactionData[index]["icon"],
                                   ],
                                 ),
                                 SizedBox(width: 20,),
                                 Text(
-                                  "Food",
+                                  transactionData[index]["name"],
                                   style: TextStyle(
-                                      color: Theme.of(context).colorScheme.onBackground,
+                                      color: Colors.black,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -273,9 +275,10 @@ class MainScreen extends StatelessWidget {
                               ],
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  "-￡10",
+                                  transactionData[index]["amount"],
                                   style: TextStyle(
                                       color: Theme.of(context).colorScheme.onBackground,
                                       fontSize: 14,
@@ -283,7 +286,7 @@ class MainScreen extends StatelessWidget {
                                 ),
 
                                 Text(
-                                  "Today",
+                                  transactionData[index]["date"],
                                   style: TextStyle(
                                       color: Theme.of(context).colorScheme.onBackground,
                                       fontSize: 14,
