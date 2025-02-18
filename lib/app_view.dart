@@ -20,7 +20,7 @@ class MyAppView extends StatelessWidget {
         )
       ),
       //TODO 后期会增加登录的情况
-      home: const HomeScreen(),
+      home:  HomeScreen(),
     );
   }
 }
