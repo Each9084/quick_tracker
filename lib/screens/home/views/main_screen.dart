@@ -52,7 +52,7 @@ class MainScreen extends StatelessWidget {
                               color: Theme.of(context).colorScheme.outline),
                         ),
                         Text(
-                          "Yichi Liu",
+                          "Each Nio",
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
