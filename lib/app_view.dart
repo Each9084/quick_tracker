@@ -11,7 +11,7 @@ class MyAppView extends StatelessWidget {
       title: "Expense Tracker",
       theme: ThemeData(
         colorScheme: ColorScheme.light(
-          background: Colors.grey.shade300,
+          background: Colors.white,
           onSurface: Colors.black,
           primary: Color(0xFF00B2E7),
           secondary: Color(0xFFE064F7),
