@@ -17,6 +17,18 @@ class _AddExpenseState extends State<AddExpense> {
   TextEditingController dateController = TextEditingController();
   DateTime selectedDate = DateTime.now();
 
+  List<String> userCategoriesIcons = [
+    "entertainment",
+    "food",
+    "home",
+    "pet",
+    "shopping",
+    "tech",
+    "travel",
+  ];
+
+  String selectedIcon = "";
+
   @override
   void initState() {
     //导入了intl包 用来更好的展示
@@ -104,89 +116,159 @@ class _AddExpenseState extends State<AddExpense> {
                                     title: Text(
                                       "Create a Category",
                                     ),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        SizedBox(
-                                          height: 16,
-                                        ),
-                                        TextFormField(
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            filled: true,
-                                            fillColor: Colors.cyan,
-                                            hintText: "Name",
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              borderSide: BorderSide.none,
+                                    content: SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(
+                                            height: 16,
+                                          ),
+                                          TextFormField(
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              filled: true,
+                                              fillColor: Colors.cyan,
+                                              hintText: "Name",
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                borderSide: BorderSide.none,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: 16,
-                                        ),
-                                        TextFormField(
-                                          readOnly: true,
-                                          onTap: () {
-                                            setState(() {
-                                              isExpanded = !isExpanded;
-                                            });
-                                          },
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            filled: true,
-                                            fillColor: Colors.cyan,
-                                            hintText: "Icon",
-                                            suffixIcon: Icon(
-                                              CupertinoIcons.chevron_down,
-                                              size: 12,
-                                            ),
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  isExpanded?
-                                                  BorderRadius.vertical(
-                                                top: Radius.circular(30),
-                                              ):BorderRadius.circular(12),
-                                              borderSide: BorderSide.none,
+                                          SizedBox(
+                                            height: 16,
+                                          ),
+                                          TextFormField(
+                                            readOnly: true,
+                                            onTap: () {
+                                              setState(() {
+                                                isExpanded = !isExpanded;
+                                              });
+                                            },
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              filled: true,
+                                              fillColor: Colors.cyan,
+                                              hintText: "Icon",
+                                              suffixIcon: Icon(
+                                                CupertinoIcons.chevron_down,
+                                                size: 12,
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderRadius: isExpanded
+                                                    //如果展开 上面圆润 下边平整
+                                                    ? BorderRadius.vertical(
+                                                        top:
+                                                            Radius.circular(30),
+                                                      )
+                                                    //不展开 则通体为12
+                                                    : BorderRadius.circular(12),
+                                                borderSide: BorderSide.none,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        //判断是否展开
-                                        isExpanded
-                                            ? Container(
-                                                width: double.infinity,
-                                                height: 200,
-                                                //color: Colors.red,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.grey,
+                                          //判断是否展开
+                                          isExpanded
+                                              //为true展开
+                                              ? Container(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  height: 200,
+                                                  //color: Colors.red,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
                                                     borderRadius:
                                                         BorderRadius.vertical(
                                                       bottom:
                                                           Radius.circular(12),
-                                                    )),
-                                              )
-                                            : Container(),
-                                        SizedBox(
-                                          height: 16,
-                                        ),
-                                        TextFormField(
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            filled: true,
-                                            fillColor: Colors.cyan,
-                                            hintText: "Color",
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              borderSide: BorderSide.none,
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: GridView.builder(
+                                                        gridDelegate:
+                                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                          //控制各个框的距离
+                                                          crossAxisSpacing: 5,
+                                                          mainAxisSpacing: 5,
+                                                          //控制一行现实的内容量
+                                                          crossAxisCount: 3,
+                                                        ),
+                                                        itemCount:
+                                                            userCategoriesIcons
+                                                                .length,
+                                                        itemBuilder:
+                                                            (context, int i) {
+                                                          //判断用户选择了什么图标,让边框颜色变为选中状态
+                                                          return GestureDetector(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                selectedIcon =
+                                                                    userCategoriesIcons[
+                                                                        i];
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              width: 50,
+                                                              height: 50,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                //加上边框
+                                                                border:
+                                                                    Border.all(
+                                                                  width: 3,
+                                                                  color: selectedIcon ==
+                                                                          userCategoriesIcons[
+                                                                              i]
+                                                                      ? Colors
+                                                                          .green
+                                                                      : Colors
+                                                                          .grey,
+                                                                ),
+
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            12),
+                                                                image:
+                                                                    DecorationImage(
+                                                                  image: AssetImage(
+                                                                      'assets/img/${userCategoriesIcons[i]}.png'),
+                                                                      //fit: BoxFit.contain,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }),
+                                                  ),
+                                                )
+                                              : Container(),
+                                          SizedBox(
+                                            height: 16,
+                                          ),
+                                          TextFormField(
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              filled: true,
+                                              fillColor: Colors.cyan,
+                                              hintText: "Color",
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                borderSide: BorderSide.none,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: 16,
-                                        ),
-                                      ],
+                                          SizedBox(
+                                            height: 16,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
