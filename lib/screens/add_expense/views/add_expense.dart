@@ -1,3 +1,4 @@
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,7 +28,11 @@ class _AddExpenseState extends State<AddExpense> {
     "travel",
   ];
 
+  //用户自定义选定的图标
   String selectedIcon = "";
+
+  //用户选择的调色盘中 图标的颜色
+  Color selectedPickerColor = Colors.cyan;
 
   @override
   void initState() {
@@ -239,7 +244,7 @@ class _AddExpenseState extends State<AddExpense> {
                                                                     DecorationImage(
                                                                   image: AssetImage(
                                                                       'assets/img/${userCategoriesIcons[i]}.png'),
-                                                                      //fit: BoxFit.contain,
+                                                                  //fit: BoxFit.contain,
                                                                 ),
                                                               ),
                                                             ),
@@ -252,15 +257,124 @@ class _AddExpenseState extends State<AddExpense> {
                                             height: 16,
                                           ),
                                           TextFormField(
+                                            readOnly: true,
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                //ctx2 是build的新的dialog的上下文信息
+                                                builder: (ctx2) {
+
+                                                  return AlertDialog(
+                                                    content: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        ColorPicker(
+                                                          //一打开调色盘默认选择的颜色
+                                                          color:
+                                                              selectedPickerColor,
+                                                          onColorChanged:
+                                                              (value) {
+                                                            setState(
+                                                              () {
+                                                                selectedPickerColor =
+                                                                    value;
+                                                              },
+                                                            );
+                                                          },
+                                                        ),
+                                                        SizedBox(
+                                                          width:
+                                                              double.infinity,
+                                                          height: 50,
+                                                          child: TextButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                              print(selectedPickerColor
+                                                                  .toString());
+                                                            },
+                                                            //处理按钮和其他组件的状态属性
+                                                            style:
+                                                                /**ButtonStyle 这种很繁琐
+                                                                backgroundColor:
+                                                                WidgetStateProperty.all(
+                                                                Colors
+                                                                .black),
+                                                                shape:
+                                                                WidgetStateProperty.all(
+                                                                RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                .circular(
+                                                                12),
+                                                                ),
+                                                                ),),*/
+                                                                TextButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  Colors.black,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            12),
+                                                              ),
+                                                            ),
+
+                                                            child: Text(
+                                                              "Save",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 22,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
                                             decoration: InputDecoration(
                                               isDense: true,
                                               filled: true,
-                                              fillColor: Colors.cyan,
+                                              fillColor: selectedPickerColor,
                                               hintText: "Color",
                                               border: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(12),
                                                 borderSide: BorderSide.none,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 30,
+                                          ),
+                                          SizedBox(
+                                            width: double.infinity,
+                                            height: 50,
+                                            child: TextButton(
+                                              onPressed: () {
+                                                //create category object and pop
+                                                Navigator.pop(context);
+                                              },
+                                              style: TextButton.styleFrom(
+                                                backgroundColor: Colors.black,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                "Save",
+                                                style: TextStyle(
+                                                    color: Colors.white),
                                               ),
                                             ),
                                           ),
