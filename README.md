@@ -1,6 +1,5 @@
 # quick_tracker
-
-A new Flutter project.
+FireBase还未完成
 
 ## Getting Started
 
