@@ -1,5 +1,5 @@
 # quick_tracker
-FireBase还未完成
+FireBase还未完成，未来还会加上验证
 
 ## Getting Started
 
