@@ -1,5 +1,5 @@
 # quick_tracker
-FireBase还未完成，未来还会加上验证，可能会使用腾讯云。
+FireBase还未完成，未来还会加上验证，可能会使用腾讯云,或者使用两个版本
 
 ## Getting Started
 
